@@ -67,20 +67,53 @@ str(x)
 ########子构建于整数向量之上，带有两个属性：class(),levels()
 
 
+x<- factor(c("a","b","b","a"))
+x
+class(x) ###factor
+levels(x)###"a" "b"
+###   注意，不能用levels中没有的值
 
 
 
+sex_char <- c("m","m","m")
+sex_factor <- factor(sex_char,levels = c("m","f"))
+table(sex_char)
+table(sex_factor)
+
+f1 <- factor(letters)
+levels(f1) <- rev(levels(f1))
+f1
+f2 <- rev(factor(letters))
+f2
+f3 <- factor(letters,levels(rev(letters)))
+f3
 
 
+####矩阵和数组
+#### 为原子向量添加一个 dim()属性，可以让它变成多维数组
 
+###两个标量参数指定了行和列
+a <- matrix(1:6,ncol = 3,nrow = 2)
+b <- array(1:12,c(2,3,2))
+c <- 1:6
+dim(c) <- c(3,2) ##三行两列
+c
+dim(c) <- c(2,3) ## 两行三列
+c
 
+####数据框
+###数据框是由等长向量
+###构成的列表。 它也是二维结构，所以它具有矩阵和列表双重属性。 
+df = data.frame(x = 1:3,y = c("a","b","c"),stringsAsFactors = T)
+str(df)
+typeof(df)
+class(df)
+is.data.frame(df)
 
-
-
-
-
-
-
-
-
+###连接数据框 ，加一列或一行
+cbind(df,data.frame(z = 3:1))
+rbind(df,data.frame(x = 10,y = "z"))
+####通过 cbind()把原子向量连接在一起来创建数据框，是一种常见的错误。 这是行不
+###通的，因为除非 cbind()的参数中含有数据框，否则 cbind()将创建矩阵类型，而不
+###是数据框类型。 
 
