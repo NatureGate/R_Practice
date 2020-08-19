@@ -53,3 +53,96 @@ df[,c("x","z")]
 x <- c(a = 1, b = 2) 
 str(x[1])
 str(x[[1]])#名字被移除
+
+#2. 列表: 返回列表内的对象，而不是包含单个元素的列表
+
+
+#3. 因子: 丢弃所有没有用到的水平。
+z<- factor(c("a","b"))
+z[1]
+z[1,drop=T]
+
+#4. 矩阵和数组: 如果任一维度的长度为 1，则丢弃那个维度。
+a<- matrix(1:4,nrow = 2)
+a[1,,drop = F]
+a[1,]
+
+#5. 数据框: 如果输出是单列的，那么将用向量替代数据框返回。
+df <- data.frame(a = 1:2,b = 1:2)
+df[1]
+str(df[1])
+df[[1]]
+str(df[,"a",drop = F])#数据框
+str(df[,"a"])#向量
+
+#  $
+#$与[[之间有一个重要区别 —— $可以部分匹配列名
+x <- list(abc = 1) 
+x$a
+
+
+#取子集与赋值
+x<- 1:5
+x[c(1,2)]<- 2:3
+x
+x[-1]<- 4:1
+x
+
+#不能把整数索引与NA联系起来,下标不能是NA
+x[c(1,NA)]<- c(1,2)
+#但是逻辑索引可以是NA，表示F
+x[c(T,F,NA)]<- -1#不够的循环补全
+x
+
+df<- data.frame(a=c(1,10,NA))
+df
+str(df$a)
+str(df[,"a",drop = F]<5) ##逻辑
+df[df[,"a",drop = F]<5]<- 0#df$a[df$a<5]<- 0
+df
+
+##查询表 字符取子集操作
+x<- c("m","f","u","f","f","m","m")
+lookup <- c(m = "Male",f = "Female",u = NA)
+(y <- lookup[x])
+str((y <- lookup[x]))
+
+#如果你不想让名字显示在结果里，那么可以使用 unname()函数来删除。 
+unname(lookup[x])
+
+
+#列表删除元素
+x<- list(a = 1,b = 2)
+str(x)
+x[["b"]]<- NULL
+str(x)
+#列表元素设置为空
+y<- list(a =1)
+y["b"] <- list(NULL)
+str(y)
+
+# 手动匹配与合并(整数取子集操作) 
+grades <- c(1,2,2,3,1)
+info <-data.frame(grade = 3:1,
+                  desc = c("Excellent","Good","Poor"),
+                  fail = c(F,F,T)
+)
+# 使用 match 
+id <- match(grades, info$grade) 
+info[id,]
+rownames(info) <- info$grade
+info[as.character(grades),]
+
+
+
+
+
+
+
+
+
+
+
+
+
+

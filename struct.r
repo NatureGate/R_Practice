@@ -104,7 +104,7 @@ c
 ####数据框
 ###数据框是由等长向量
 ###构成的列表。 它也是二维结构，所以它具有矩阵和列表双重属性。 
-df = data.frame(x = 1:3,y = c("a","b","c"),stringsAsFactors = T)
+(df = data.frame(x = 1:3,y = c("a","b","c"),stringsAsFactors = T))
 str(df)
 typeof(df)
 class(df)
@@ -116,4 +116,36 @@ rbind(df,data.frame(x = 10,y = "z"))
 ####通过 cbind()把原子向量连接在一起来创建数据框，是一种常见的错误。 这是行不
 ###通的，因为除非 cbind()的参数中含有数据框，否则 cbind()将创建矩阵类型，而不
 ###是数据框类型。 
+
+
+#索引数组
+x<- array(1:20,dim = c(4,5))#产生一个4*5的数组
+x
+i<- array(c(1:3,3:1),dim = c(3,2))
+i                          #i是一个3*2的索引矩阵
+str(i)
+x[i]                      #提取这些元素
+
+x[i] <- 0
+x
+##这里没有想明白
+
+##数组构建
+#Z <- array(data_vector,dim_vector)
+z <- array(1:24,dim = c(3,4,2))
+
+##数组的外积
+ab <- a%o%b
+ab <- outer(a,b,"*")
+
+#0-9 2*2矩阵行列式所有值的概率分布
+d<- outer(0:9,0:9)
+d
+fr<- table(outer(d,d,"-"))
+fr
+plot(as.numeric(names(fr)),fr,type = "h",xlab = "Determinant",ylab = "Frequency")
+
+
+#矩阵
+#矩阵相乘 %*%
 
