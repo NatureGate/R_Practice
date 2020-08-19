@@ -5,3 +5,29 @@ Lst$name ;Lst[[1]]
 
 #构建和修改列表
 # Lst <- list(name 1=object 1, ..., name m=object m)
+
+
+#数据框
+# attach() 和detach()
+id <- c(1,2,3)
+
+name <- c("Jack","Tom","Mark")
+
+age <- c(22,30,27)
+
+mydata <- data.frame(id,age,name)
+
+mydata
+
+ attach(mydata)
+ age;name
+
+#detach(mydata)
+#age
+
+# attach()keyi 绑定任意的列表
+
+search()
+ls(2)
+detach(mydata)
+search()
