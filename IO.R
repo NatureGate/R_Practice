@@ -12,3 +12,5 @@ channel <- odbcConnectExcel2007("worker.xlsx")
 mydata_frame <- sqlFetch(channel,"Sheet1")
 odbcClose(channel)
 mydata_frame
+
+
