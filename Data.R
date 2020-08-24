@@ -29,3 +29,69 @@ leadership$age[leadership$age == 99]<-NA #
 leadership$agecat[leadership$age >75 ]<-"Elder"
 leadership$agecat[leadership$age >=55&leadership$age <=75 ] <- "Middle Aged"
 leadership$agecat[leadership$age <55 ]<-"Young"
+
+##更紧凑的写法
+leadership <- within(leadership,{
+  agecat <- NA
+  agecat[age >75] <- "Elder"
+  agecat[age<=55$agecat<=75] <- "Middle Aged"
+  agecat[age<55] <- "Young"
+})
+
+##变量的重命名
+#reanme(dataframe,c(oldname = "newname",oldname = "newname"))
+
+leadership
+newdata = na.omit(leadership)
+newdata
+
+##日期转换
+#as.Date(x,input_format)
+myformat <- "%m/%d/%y"
+leadership$date<- as.Date(leadership$date,myformat)
+
+#日期转为字符
+#strDates <- as.character(dates)
+
+##排序
+newdata2 <- leadership[order(leadership$age),]
+newdata2
+
+#数据集的合并 ，类似mysql的join
+#total <- merge(dataframe1,dataframe2,by = "ID")
+#不需要公共索引 ，用total<- cbind(A,B)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
