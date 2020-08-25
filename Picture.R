@@ -41,3 +41,17 @@ plot(dose,drugB,type = "b",pch = 23,lty = 6,col = "blue",bg = "green")
 par(opar)
 
 # 添加文本、自定义坐标轴和图例 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
