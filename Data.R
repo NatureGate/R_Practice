@@ -25,7 +25,7 @@ detach(mydata)
 mydata <- transform(mydata,sumx = x1+x2,meanx = (x1+x2)/2)
 
 #variable[condition] <- expression将仅在condition的值为TRUE时执行赋值
-leadership$age[leadership$age == 99]<-NA #
+leadership$agecat[leadership$age == 99]<-NA #
 leadership$agecat[leadership$age >75 ]<-"Elder"
 leadership$agecat[leadership$age >=55&leadership$age <=75 ] <- "Middle Aged"
 leadership$agecat[leadership$age <55 ]<-"Young"
@@ -62,36 +62,53 @@ newdata2
 #不需要公共索引 ，用total<- cbind(A,B)
 
 
+#数据集取子集
+
+newdata <- leadership[,c(6:10)]
+newdata
+
+myvars <-c("q1","q2","q3","q4","q5")
+newdata <- leadership[myvars]
+newdata
 
 
+##丢弃变量
+myvars <- names(leadership)%in%c("q3","q4")
+newdata <- leadership[!myvars]
+newdata
 
 
+##也可用下面方法
+newdata <- leadership[c(-8,-9)]
+newdata
 
 
+##选入观测
+newdata <- leadership[1:3,]
+newdata <- leadership[which(leadership$gender == "M"&leadership$age > 30)]
+
+##使用subset函数
+newdata <- subset(leadership,age >= 35|age < 24,select = c(q1,q2,q3,q4))
+newdata
+
+newdata <- subset(leadership,gender== "M",select = c(q1,q2,q3,q4))
+newdata
+
+##随机抽烟
+leadership
+mysample <- leadership[sample(1:nrow(leadership),3,replace = F)]
+mysample
 
 
+##使用sql
+
+install.packages("sqldf")
+library("sqldf")
+newdata <- sqldf::sqldf("select * from leadership where age is NOT NULL AND age>32 ")
+newdata
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+### 
 
 
 
