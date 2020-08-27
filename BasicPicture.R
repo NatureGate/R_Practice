@@ -71,5 +71,58 @@ cvd19 = matrix(
 colnames(cvd19) = c("中国","美国","印度")
 rownames(cvd19) = c("6月","7月")
 barplot(cvd19,main = "新冠疫情条形图",
-        beside = F,
+        beside = T,
+        col=c("blue","green")
         )
+
+##直方图 hist(x)
+#par(mfrow = c(2,2))
+hist(mtcars$mpg)
+
+##指定数组和颜色
+hist(mtcars$mpg,
+     breaks = 12,
+     col = "red",
+     xlab = "Miles Per Galon",
+     main = "Colored histogram with 12 bins")
+
+##添加轴须图
+hist(mtcars$mpg,
+     breaks = 12,
+     col = "red",
+     xlab = "Miles Per Galon",
+     main = "Colored histogram with 12 bins")
+rug(jitter(mtcars$mpg))
+lines(density(mtcars$mpg),col = "blue",lwd = 2)
+
+##添加正太密度曲线和外框
+x <- mtcars$mpg
+h <- hist(mtcars$mpg,
+     breaks = 12,
+     col = "red",
+     xlab = "Miles Per Galon",
+     main = "Colored histogram with 12 bins")
+xfit <- seq(min(x),max(x),length = 40)
+yfit <- dnorm(xfit,mean = mean(x),sd = sd(x))
+yfit <- yfit*diff(h$mids[1:2])*length(x)
+lines(xfit,yfit,col = "blue",lwd = 2)
+box()
+
+##箱线图
+attach(mtcars)
+boxplot(mpg~cyl,
+        data = mtcars,
+        main = "Car Mileage Data",
+        xlab = "Number of Cylinders",
+        ylab = "Miles Per Gallon")
+
+cyl.f <- factor(cyl,levels = c(4,6,8),
+                labels = c("4","6","8"))
+am.f <- factor(am,levels = c(0,1),
+                labels = c("auto","standard"))
+boxplot(mpg~am.f*cyl.f,
+        data = mtcars,
+        varwidth = T,
+        col = c("gold","darkgreen"),
+        xlab = "Auto Type",
+        main = "MPG Distribution by Auto Type")
